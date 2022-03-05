@@ -83,29 +83,29 @@ async function driverReport() {
   }
 
   // Get number of cash and non-cash trips per driver...
-  let revenueByDriver = {};
+  let earningsByDriver = {};
 
   for (let driver of uniqueTripsInfo) {
-    if (revenueByDriver[driver.driverID]) {
+    if (earningsByDriver[driver.driverID]) {
       if (driver.isCash) {
         let billedAmount = driver.billedAmount.toString().replace(',', '');
-        revenueByDriver[driver.driverID].totalCashAmount +=
+        earningsByDriver[driver.driverID].totalCashAmount +=
           parseFloat(billedAmount);
-        revenueByDriver[driver.driverID].noOfCashTrips += 1;
-        revenueByDriver[driver.driverID].totalAmountEarned +=
+        earningsByDriver[driver.driverID].noOfCashTrips += 1;
+        earningsByDriver[driver.driverID].totalAmountEarned +=
           parseFloat(billedAmount);
       } else {
         let billedAmount = driver.billedAmount.toString().replace(',', '');
-        revenueByDriver[driver.driverID].totalNonCashAmount +=
+        earningsByDriver[driver.driverID].totalNonCashAmount +=
           parseFloat(billedAmount);
-        revenueByDriver[driver.driverID].noOfNonCashTrips++;
-        revenueByDriver[driver.driverID].totalAmountEarned +=
+        earningsByDriver[driver.driverID].noOfNonCashTrips++;
+        earningsByDriver[driver.driverID].totalAmountEarned +=
           parseFloat(billedAmount);
       }
     } else {
       if (driver.isCash) {
         let billedAmount = driver.billedAmount.toString().replace(',', '');
-        revenueByDriver[driver.driverID] = {
+        earningsByDriver[driver.driverID] = {
           noOfCashTrips: 1,
           noOfNonCashTrips: 0,
           totalAmountEarned: parseFloat(billedAmount),
@@ -114,7 +114,7 @@ async function driverReport() {
         };
       } else {
         let billedAmount = driver.billedAmount.toString().replace(/,/g, '');
-        revenueByDriver[driver.driverID] = {
+        earningsByDriver[driver.driverID] = {
           noOfCashTrips: 0,
           noOfNonCashTrips: 1,
           totalAmountEarned: parseFloat(billedAmount),
@@ -164,28 +164,28 @@ async function driverReport() {
         driver.noOfTrips = noOfTripsByDriver[trip.driverID];
         driver.noOfVehicles = vehiclePerDriver[trip.driverID].length;
         driver.vehicles = vehiclePerDriver[trip.driverID];
-        driver.noOfCashTrips = revenueByDriver[trip.driverID].noOfCashTrips;
+        driver.noOfCashTrips = earningsByDriver[trip.driverID].noOfCashTrips;
         driver.noOfNonCashTrips =
-          revenueByDriver[trip.driverID].noOfNonCashTrips;
+          earningsByDriver[trip.driverID].noOfNonCashTrips;
         driver.totalAmountEarned =
-          revenueByDriver[trip.driverID].totalAmountEarned.toFixed(2);
+          earningsByDriver[trip.driverID].totalAmountEarned.toFixed(2);
         driver.totalCashAmount =
-          revenueByDriver[trip.driverID].totalCashAmount.toFixed(2);
+          earningsByDriver[trip.driverID].totalCashAmount.toFixed(2);
         driver.totalNonCashAmount =
-          revenueByDriver[trip.driverID].totalNonCashAmount.toFixed(2);
+          earningsByDriver[trip.driverID].totalNonCashAmount.toFixed(2);
         driver.trips = tripUsersPerDriver[trip.driverID];
       } else {
         driver.id = trip.driverID;
         driver.noOfTrips = noOfTripsByDriver[trip.driverID];
-        driver.noOfCashTrips = revenueByDriver[trip.driverID].noOfCashTrips;
+        driver.noOfCashTrips = earningsByDriver[trip.driverID].noOfCashTrips;
         driver.noOfNonCashTrips =
-          revenueByDriver[trip.driverID].noOfNonCashTrips;
+          earningsByDriver[trip.driverID].noOfNonCashTrips;
         driver.totalAmountEarned =
-          revenueByDriver[trip.driverID].totalAmountEarned.toFixed(2);
+          earningsByDriver[trip.driverID].totalAmountEarned.toFixed(2);
         driver.totalCashAmount =
-          revenueByDriver[trip.driverID].totalCashAmount.toFixed(2);
+          earningsByDriver[trip.driverID].totalCashAmount.toFixed(2);
         driver.totalNonCashAmount =
-          revenueByDriver[trip.driverID].totalNonCashAmount.toFixed(2);
+          earningsByDriver[trip.driverID].totalNonCashAmount.toFixed(2);
         driver.trips = tripUsersPerDriver[trip.driverID];
       }
 
